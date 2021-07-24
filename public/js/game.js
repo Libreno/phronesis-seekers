@@ -24,9 +24,11 @@ var player1, player2;
 
 function preload() {
     this.load.image('circle', '../assets/car1.png');
+    this.load.image('landscape', 'assets/river-5584849_1920.jpg');
 }
 function create() {
     var self = this;
+    self.add.image(800, 600, 'landscape');
     this.socket = io();
     this.otherPlayers = this.physics.add.group();
     this.socket.on('currentPlayers', function (players) {
