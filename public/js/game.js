@@ -23,7 +23,7 @@ var cursors;
 var player1, player2;
 
 function preload() {
-    this.load.image('circle', '../assets/circle.png');
+    this.load.image('circle', '../assets/car1.png');
 }
 function create() {
     var self = this;
@@ -81,17 +81,20 @@ function update() {
             rotation: this.ship.rotation
         };
         if (this.cursors.left.isDown) {
-            this.ship.setAngularVelocity(-150);
+            this.ship.setAngularVelocity(-150, 300);
         } else if (this.cursors.right.isDown) {
-            this.ship.setAngularVelocity(150);
+            this.ship.setAngularVelocity(150, 300);
         } else {
             this.ship.setAngularVelocity(0);
         }
 
         if (this.cursors.up.isDown) {
-            this.physics.velocityFromRotation(this.ship.rotation + 1.5, 100, this.ship.body.acceleration);
+            this.physics.velocityFromRotation(this.ship.rotation + 1.5, 200, this.ship.body.acceleration);
+        } else if (this.cursors.down.isDown){
+            //this.physics.velocityFromRotation(-(this.ship.rotation + 1.5), 50, this.ship.body.acceleration);
+            this.ship.setAcceleration(0);
         } else {
-            this.ship.setAcceleration(-1);
+            this.ship.setAcceleration(0);
         }
 
 
@@ -99,7 +102,7 @@ function update() {
 }
 
 function addPlayer(self, playerInfo) {
-    self.ship = self.physics.add.image(playerInfo.x, playerInfo.y, 'circle').setOrigin(0.5, 0.5).setDisplaySize(50, 50);
+    self.ship = self.physics.add.image(playerInfo.x, playerInfo.y, 'circle').setOrigin(0.5, 0.5).setDisplaySize(58, 83);
     if (playerInfo.team === 'blue') {
         self.ship.setTint(0x0000ff);
     } else {
@@ -110,7 +113,7 @@ function addPlayer(self, playerInfo) {
     self.ship.setMaxVelocity(200);
 }
 function addOtherPlayers(self, playerInfo) {
-    const otherPlayer = self.add.sprite(playerInfo.x, playerInfo.y, 'circle').setOrigin(0.5, 0.5).setDisplaySize(50, 50);
+    const otherPlayer = self.add.sprite(playerInfo.x, playerInfo.y, 'circle').setOrigin(0.5, 0.5).setDisplaySize(58, 83);
     if (playerInfo.team === 'blue') {
         otherPlayer.setTint(0x0000ff);
     } else {
