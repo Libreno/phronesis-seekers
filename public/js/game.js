@@ -1,4 +1,4 @@
-var config = {
+let config = {
     type: Phaser.CANVAS,
     parent: 'phaser-example',
     width: 800,
@@ -10,11 +10,11 @@ var config = {
             gravity: { y: 0 }
         }
     },
-    scene: {
+    scene: [{
         preload: preload,
         create: create,
         update: update
-    }
+    }]
 };
 var game = new Phaser.Game(config);
 
@@ -24,9 +24,11 @@ var player1, player2;
 
 function preload() {
     this.load.image('circle', '../assets/circle.png');
+    this.load.image('landscape', 'assets/river-5584849_1920.jpg');
 }
 function create() {
     var self = this;
+    self.add.image(800, 600, 'landscape');
     this.socket = io();
     this.otherPlayers = this.physics.add.group();
     this.socket.on('currentPlayers', function (players) {
